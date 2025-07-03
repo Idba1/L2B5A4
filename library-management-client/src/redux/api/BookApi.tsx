@@ -32,6 +32,22 @@ export interface CreateBookDto {
 
 export const bookApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+
+        // create
+        createBook: builder.mutation<Book, CreateBookDto>({
+            query: (payload) => ({
+                url: '/books',
+                method: 'POST',
+                body: payload,
+            }),
+            transformResponse: (r: {
+                success: boolean;
+                data: Book;
+            }) => r.data,
+            invalidatesTags: ['Book'],
+        }),
+
+
         // all book list
         getBooks: builder.query<Book[], void>({
             query: () => '/books',
@@ -73,6 +89,7 @@ export const bookApi = baseApi.injectEndpoints({
 });
 
 export const {
+    useCreateBookMutation,
     useGetBooksQuery,
     useGetBookQuery,
     useUpdateBookMutation,
