@@ -87,9 +87,15 @@ const BookList = () => {
                                     >
                                         Delete
                                     </button>
+                                    <Link
+                                        to={`/borrow/${book._id}`}
+                                        className={`text-primary-600 hover:text-primary-900 ${!book.available && 'opacity-50 cursor-not-allowed'
+                                            }`}
+                                    >
+                                        Borrow
+                                    </Link>
                                 </td>
                             </tr>
-
                         ))}
                         {books.length === 0 && (
                             <tr>
