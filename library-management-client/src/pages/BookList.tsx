@@ -1,11 +1,24 @@
 import { Link } from 'react-router-dom';
 import {
+    useDeleteBookMutation,
     useGetBooksQuery,
 } from '../redux/api/BookApi';
+import { toast } from 'react-toastify';
 
 const BookList = () => {
     const { data: books = [], isLoading, error } = useGetBooksQuery();
+    const [deleteBook] = useDeleteBookMutation();
 
+    const handleDelete = async (id: string) => {
+        if (window.confirm('Are you sure you want to delete this book?')) {
+            try {
+                await deleteBook(id).unwrap();
+                toast.success('Book deleted');
+            } catch {
+                toast.error('Delete failed');
+            }
+        }
+    };
     if (isLoading) return <p className="text-center mt-10">Loading…</p>;
     if (error) return <p className="text-center mt-10 text-red-600">Error</p>;
 
@@ -68,6 +81,12 @@ const BookList = () => {
                                     >
                                         Edit
                                     </Link>
+                                    <button
+                                        onClick={() => handleDelete(book._id)}
+                                        className="text-red-600 hover:text-red-900"
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
 
