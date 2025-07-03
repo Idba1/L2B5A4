@@ -55,7 +55,16 @@ const BookList = () => {
                                         {book.available ? 'Available' : 'Unavailable'}
                                     </span>
                                 </td>
+                                <td className="px-6 py-4 text-sm space-x-2">
+                                    <Link
+                                        to={`/books/${book._id}`}
+                                        className="text-blue-600 hover:text-blue-800"
+                                    >
+                                        View
+                                    </Link>
+                                </td>
                             </tr>
+
                         ))}
                         {books.length === 0 && (
                             <tr>

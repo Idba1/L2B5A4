@@ -41,9 +41,19 @@ export const bookApi = baseApi.injectEndpoints({
             providesTags: ['Book'],
         }),
 
+        getBook: builder.query<Book, string>({
+            query: (id) => `/books/${id}`,
+            transformResponse: (r: {
+                success: boolean;
+                data: Book;
+            }) => r.data,
+            providesTags: ['Book'],
+        }),
+
     }),
 });
 
 export const {
     useGetBooksQuery,
+    useGetBookQuery,
 } = bookApi;
