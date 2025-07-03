@@ -1,8 +1,7 @@
-import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { bookApi } from '../redux/api/BookApi';
 
-const BookDetails: React.FC = () => {
+const BookDetails= () => {
     const { id } = useParams<{ id: string }>();
     const { data: book, isLoading, error } = bookApi.useGetBookQuery(id!);
 

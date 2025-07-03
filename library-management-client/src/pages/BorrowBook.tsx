@@ -1,10 +1,9 @@
-import React from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { bookApi } from '@/redux/api/BookApi';
 import { borrowApi } from '@/redux/api/borrowApi';
 import BorrowForm from '@/components/BorrowForm';
 
-const BorrowBook: React.FC = () => {
+const BorrowBook= () => {
     const { id } = useParams<{ id: string }>();
     const { data: book, isLoading, error } = bookApi.useGetBookQuery(id!);
     const [createBorrow] = borrowApi.useCreateBorrowMutation();

@@ -1,8 +1,7 @@
-import React from 'react';
 import BookForm from '../components/BookForm';
 import { bookApi } from '../redux/api/BookApi';
 
-const CreateBook: React.FC = () => {
+const CreateBook = () => {
     const [createBook] = bookApi.useCreateBookMutation();
 
     return (

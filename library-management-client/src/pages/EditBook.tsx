@@ -1,9 +1,8 @@
-import React from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import BookForm from '../components/BookForm';
 import { bookApi } from '../redux/api/BookApi';
 
-const EditBook: React.FC = () => {
+const EditBook= () => {
     const { id } = useParams<{ id: string }>();
     const { data: book, isLoading, error } = bookApi.useGetBookQuery(id!);
     const [updateBook] = bookApi.useUpdateBookMutation();

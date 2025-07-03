@@ -34,9 +34,19 @@ export const borrowApi = baseApi.injectEndpoints({
             invalidatesTags: ['Borrow', 'Book'],
         }),
 
+
+        getBorrowSummary: builder.query<BorrowSummary[], void>({
+            query: () => '/borrow',
+            transformResponse: (r: {
+                success: boolean;
+                data: BorrowSummary[];
+            }) => r.data,
+            providesTags: ['Borrow'],
+        }),
     }),
 });
 
 export const {
     useCreateBorrowMutation,
+    useGetBorrowSummaryQuery,
 } = borrowApi;
