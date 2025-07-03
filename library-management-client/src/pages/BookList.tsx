@@ -62,6 +62,12 @@ const BookList = () => {
                                     >
                                         View
                                     </Link>
+                                    <Link
+                                        to={`/edit-book/${book._id}`}
+                                        className="text-primary-600 hover:text-primary-900"
+                                    >
+                                        Edit
+                                    </Link>
                                 </td>
                             </tr>
 

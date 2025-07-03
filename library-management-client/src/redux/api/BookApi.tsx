@@ -32,6 +32,7 @@ export interface CreateBookDto {
 
 export const bookApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        // all book list
         getBooks: builder.query<Book[], void>({
             query: () => '/books',
             transformResponse: (r: {
@@ -41,6 +42,7 @@ export const bookApi = baseApi.injectEndpoints({
             providesTags: ['Book'],
         }),
 
+        // specific book
         getBook: builder.query<Book, string>({
             query: (id) => `/books/${id}`,
             transformResponse: (r: {
@@ -50,10 +52,28 @@ export const bookApi = baseApi.injectEndpoints({
             providesTags: ['Book'],
         }),
 
+        // edit
+        updateBook: builder.mutation<
+            Book,
+            { id: string; book: Partial<CreateBookDto> }
+        >({
+            query: ({ id, book }) => ({
+                url: `/books/${id}`,
+                method: 'PUT',
+                body: book,
+            }),
+            transformResponse: (r: {
+                success: boolean;
+                data: Book;
+            }) => r.data,
+            invalidatesTags: ['Book'],
+        }),
+
     }),
 });
 
 export const {
     useGetBooksQuery,
     useGetBookQuery,
+    useUpdateBookMutation,
 } = bookApi;

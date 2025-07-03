@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams,  Navigate } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { bookApi } from '../redux/api/BookApi';
 
 const BookDetails: React.FC = () => {
@@ -22,7 +22,14 @@ const BookDetails: React.FC = () => {
         <div>
             <div className="mb-6 flex items-center justify-between">
                 <h1 className="text-2xl font-semibold ">Book Details</h1>
-
+                <div className="space-x-3">
+                    <Link
+                        to={`/edit-book/${book._id}`}
+                        className="btn btn-secondary"
+                    >
+                        Edit
+                    </Link>
+                </div>
             </div>
 
             <div className=" shadow overflow-hidden sm:rounded-lg">
