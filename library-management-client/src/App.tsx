@@ -1,18 +1,22 @@
-// import { Button } from "@/components/ui/button"
 import { Outlet } from "react-router"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 
 function App() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <>
-        <Navbar></Navbar>
-        <div className="mt-16">
-          <Outlet></Outlet>
+    <div className="flex flex-col min-h-screen">
+      {/* Fixed Navbar */}
+      <Navbar />
+
+      {/* Page Content */}
+      <main className="flex-1 mt-16">
+        <div className="max-w-7xl mx-auto w-full px-4 py-6">
+          <Outlet />
         </div>
-        <Footer></Footer>
-      </>
+      </main>
+
+      {/* Sticky Footer */}
+      <Footer />
     </div>
   )
 }
