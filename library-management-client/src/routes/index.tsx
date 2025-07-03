@@ -1,5 +1,5 @@
 import App from "@/App";
-import AllBooks from "@/pages/AllBooks";
+import BookList from "@/pages/BookList";
 import CreateBook from "@/pages/CreateBook";
 
 import { createBrowserRouter } from "react-router";
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <AllBooks></AllBooks>
+                element: <BookList></BookList>
             },
             {
                 path: "/books/create",
