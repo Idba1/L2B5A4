@@ -2,6 +2,7 @@ import type { Book, CreateBookDto, Genre } from '@/redux/api/BookApi';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 interface Props {
     initialData?: Book;
@@ -50,12 +51,20 @@ const BookForm: React.FC<Props> = ({ initialData, onSubmit, submitLabel }) => {
 
         try {
             await onSubmit(formData).unwrap();
-            toast.success(`Book ${submitLabel === 'Update Book' ? 'updated' : 'created'} successfully!`);
+
+            await Swal.fire({
+                title: 'Success!',
+                text: `Book ${submitLabel === 'Update Book' ? 'updated' : 'created'} successfully!`,
+                icon: 'success',
+                confirmButtonColor: '#10B981',
+            });
+
             navigate('/books');
         } catch (err: any) {
             toast.error(err?.data?.message || 'Error saving book');
         }
     };
+
 
     return (
         <div className="max-w-xl mx-auto p-6  rounded-xl shadow-md">
