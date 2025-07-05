@@ -1,5 +1,6 @@
 import { baseApi } from './BaseApi';
 
+
 export type Genre =
     | 'FICTION'
     | 'NON_FICTION'
@@ -30,67 +31,60 @@ export interface CreateBookDto {
     copies: number;
 }
 
+export interface ListReq {
+    page: number;
+    limit: number;
+}
+
+export interface Pagination {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+}
+
+export interface ListRes {
+    data: Book[];
+    pagination: Pagination;
+}
+
+
 export const bookApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
 
-        // create
         createBook: builder.mutation<Book, CreateBookDto>({
-            query: (payload) => ({
-                url: '/books',
-                method: 'POST',
-                body: payload,
-            }),
-            transformResponse: (r: {
-                success: boolean;
-                data: Book;
-            }) => r.data,
+            query: (body) => ({ url: '/books', method: 'POST', body }),
+            transformResponse: (r: { success: boolean; data: Book }) => r.data,
             invalidatesTags: ['Book'],
         }),
 
-
-        // all book list
-        getBooks: builder.query<Book[], void>({
-            query: () => '/books',
+        getBooks: builder.query<ListRes, ListReq>({
+            query: ({ page, limit }) => `/books?page=${page}&limit=${limit}`,
             transformResponse: (r: {
                 success: boolean;
                 data: Book[];
-            }) => r.data,
+                pagination: Pagination;
+            }): ListRes => ({ data: r.data, pagination: r.pagination }),
             providesTags: ['Book'],
         }),
 
-        // specific book
         getBook: builder.query<Book, string>({
             query: (id) => `/books/${id}`,
-            transformResponse: (r: {
-                success: boolean;
-                data: Book;
-            }) => r.data,
+            transformResponse: (r: { success: boolean; data: Book }) => r.data,
             providesTags: ['Book'],
         }),
 
-        // edit
         updateBook: builder.mutation<
             Book,
             { id: string; book: Partial<CreateBookDto> }
         >({
-            query: ({ id, book }) => ({
-                url: `/books/${id}`,
-                method: 'PUT',
-                body: book,
-            }),
-            transformResponse: (r: {
-                success: boolean;
-                data: Book;
-            }) => r.data,
+            query: ({ id, book }) => ({ url: `/books/${id}`, method: 'PUT', body: book }),
+            transformResponse: (r: { success: boolean; data: Book }) => r.data,
             invalidatesTags: ['Book'],
         }),
 
-        // delete
         deleteBook: builder.mutation<void, string>({
-            query: (id) => ({
-                url: `/books/${id}`,
-                method: 'DELETE',
-            }),
+            query: (id) => ({ url: `/books/${id}`, method: 'DELETE' }),
             invalidatesTags: ['Book'],
         }),
     }),
