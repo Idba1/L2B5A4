@@ -23,7 +23,6 @@ export interface BorrowSummary {
 
 export const borrowApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        // borrow a book
         createBorrow: builder.mutation<Borrow, CreateBorrowDto>({
             query: (payload) => ({
                 url: '/borrow',
@@ -34,19 +33,12 @@ export const borrowApi = baseApi.injectEndpoints({
             invalidatesTags: ['Borrow', 'Book'],
         }),
 
-
         getBorrowSummary: builder.query<BorrowSummary[], void>({
-            query: () => '/borrow',
-            transformResponse: (r: {
-                success: boolean;
-                data: BorrowSummary[];
-            }) => r.data,
+            query: () => '/borrow/summary',
+            transformResponse: (r: { success: boolean; data: BorrowSummary[] }) => r.data,
             providesTags: ['Borrow'],
         }),
     }),
 });
 
-export const {
-    useCreateBorrowMutation,
-    useGetBorrowSummaryQuery,
-} = borrowApi;
+export const { useCreateBorrowMutation, useGetBorrowSummaryQuery } = borrowApi;
