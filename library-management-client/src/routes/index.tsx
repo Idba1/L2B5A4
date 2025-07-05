@@ -22,7 +22,7 @@ const router = createBrowserRouter([
                 element: <BookList></BookList>
             },
             {
-                path: "/books/create",
+                path: "/create-book",
                 element: <CreateBook></CreateBook>
             },
             {

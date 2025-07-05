@@ -47,7 +47,7 @@ const BookList = () => {
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <h1 className="text-2xl font-semibold">All Books</h1>
-                <Link to="/books/create" className="btn btn-primary flex items-center gap-1">
+                <Link to="/create-book" className="btn btn-primary flex items-center gap-1">
                     <Plus className="w-4 h-4" />
                     Add Book
                 </Link>

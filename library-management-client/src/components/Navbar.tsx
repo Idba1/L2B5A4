@@ -20,13 +20,13 @@ const Navbar = () => {
                     {/* Desktop Nav */}
                     <div className="hidden md:flex items-center space-x-4">
                         <Link
-                            to="/"
+                            to="/books"
                             className="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition"
                         >
                             All Books
                         </Link>
                         <Link
-                            to="/books/create"
+                            to="/create-book"
                             className="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition"
                         >
                             Add Book
