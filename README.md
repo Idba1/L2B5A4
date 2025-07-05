@@ -1,5 +1,5 @@
 
-# 📚 Book Management Frontend
+# 📚  Library Management System Frontend
 
 A simple, modern, and responsive Book Management frontend built with **React**, **Redux Toolkit Query**, **Tailwind CSS**, and **TypeScript**. This app interacts with a backend API to allow users to manage books and borrowing operations.
 
