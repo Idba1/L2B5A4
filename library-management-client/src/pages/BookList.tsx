@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
-import { Eye, Pencil, Trash, BookOpen, Plus } from 'lucide-react';
+import { Eye, Pencil, Trash, BookOpen, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import {
     useGetBooksQuery,
@@ -119,35 +119,54 @@ export default function BookList() {
                     </tbody>
                 </table>
             </div>
-
             {/* pagination */}
             {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-2">
-                    <button
-                        disabled={page === 1 || isFetching}
-                        className="btn btn-sm"
-                        onClick={() => setPage((p) => p - 1)}>
-                        Prev
-                    </button>
+                <nav className="flex justify-center">
+                    <ul className="flex gap-2">
+                        {/* Prev */}
+                        <li>
+                            <button
+                                onClick={() => setPage((p) => p - 1)}
+                                disabled={page === 1 || isFetching}
+                                className="h-10 w-10 flex items-center justify-center rounded-full border
+                     border-gray-300 text-gray-500 hover:bg-gray-100
+                     disabled:opacity-40 disabled:cursor-not-allowed transition">
+                                <ChevronLeft size={18} />
+                            </button>
+                        </li>
 
-                    {Array.from({ length: totalPages }).map((_, idx) => (
-                        <button
-                            key={idx + 1}
-                            className={`btn btn-sm ${page === idx + 1 ? 'btn-primary' : 'btn-outline'}`}
-                            disabled={isFetching}
-                            onClick={() => setPage(idx + 1)}>
-                            {idx + 1}
-                        </button>
-                    ))}
+                        {/* Numbered pages */}
+                        {Array.from({ length: totalPages }).map((_, idx) => (
+                            <li key={idx + 1}>
+                                <button
+                                    onClick={() => setPage(idx + 1)}
+                                    disabled={isFetching}
+                                    className={`h-10 w-10 flex items-center justify-center rounded-full border
+                        transition
+                        ${page === idx + 1
+                                            ? 'bg-blue-500 text-white border-blue-500'
+                                            : 'border-gray-300 text-gray-700 hover:bg-gray-100'
+                                        }`}>
+                                    {idx + 1}
+                                </button>
+                            </li>
+                        ))}
 
-                    <button
-                        disabled={page === totalPages || isFetching}
-                        className="btn btn-sm"
-                        onClick={() => setPage((p) => p + 1)}>
-                        Next
-                    </button>
-                </div>
+                        {/* Next */}
+                        <li>
+                            <button
+                                onClick={() => setPage((p) => p + 1)}
+                                disabled={page === totalPages || isFetching}
+                                className="h-10 w-10 flex items-center justify-center rounded-full border
+                     border-gray-300 text-gray-500 hover:bg-gray-100
+                     disabled:opacity-40 disabled:cursor-not-allowed transition">
+                                <ChevronRight size={18} />
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
             )}
+
         </div>
     );
 }
