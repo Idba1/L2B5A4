@@ -174,7 +174,7 @@ const BookForm: React.FC<Props> = ({ initialData, onSubmit, submitLabel }) => {
                         min={0}
                         value={formData.copies}
                         onChange={handleChange}
-                        required
+                        // required
                         className="mt-1 w-full border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-md shadow-sm focus:ring focus:ring-green-300 focus:outline-none p-2"
                         placeholder="Enter number of copies"
                     />
